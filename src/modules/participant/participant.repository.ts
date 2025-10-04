@@ -46,4 +46,13 @@ export class ParticipantRepository {
             }
         });
     }
+
+    async findAllByQuizId(quizId: string, type: "all" | "participant") {
+        return await this.prisma.participant.findMany({
+            where: {
+                quizId,
+                ...(type === "participant" && { role: { not: "Admin" } }),
+            },
+        });
+    }
 }

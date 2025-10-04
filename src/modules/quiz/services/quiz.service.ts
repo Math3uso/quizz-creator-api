@@ -57,7 +57,7 @@ export class QuizService {
 
             if (!validQuiz.start) {
                 validQuiz.start = true;
-                await this.quizRepository.updateById(validQuiz.id, validQuiz);
+                await this.quizRepository.setStartById(validQuiz.id, validQuiz.start);
             }
 
 
@@ -68,7 +68,7 @@ export class QuizService {
         const participant = await this.participantCache.getParticipantById({ quizId, userId });
         if (participant) throw new QuizIsAlreadyInProgress();
 
-        console.log(participant);
+        // console.log(participant);
 
         const newParticipant: Participant & { answers: Answer[] } = {
             id: randomUUID(),
