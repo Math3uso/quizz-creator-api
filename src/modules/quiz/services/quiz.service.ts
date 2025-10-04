@@ -53,6 +53,8 @@ export class QuizService {
 
             console.log("add no cache");
 
+            console.log(validQuiz);
+
             if (!validQuiz.start) {
                 validQuiz.start = true;
                 await this.quizRepository.updateById(validQuiz.id, validQuiz);

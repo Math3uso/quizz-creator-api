@@ -52,4 +52,13 @@ export class QuizRepository {
             data: content
         });
     }
+
+    async setStartById(id: string, start: boolean): Promise<Quiz | null> {
+        return await this.prisma.quiz.update({
+            where: { id },
+            data: {
+                start
+            }
+        })
+    }
 }

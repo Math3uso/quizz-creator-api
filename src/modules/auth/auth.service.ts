@@ -1,9 +1,7 @@
 import { Inject, Injectable, NotFoundException, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { IUserRepository } from "src/_interfaces/i-user.repository";
-import { UnauthorizedError } from "src/common/errors/unauthorized.error";
 import { UserRepository } from "../users/user.repository";
-import { UserIsNotFoundError } from "src/common/errors/user-is-not-found.error";
 import bcrypt from "bcrypt";
 import { Prisma } from "@prisma/client";
 
@@ -18,7 +16,6 @@ export class AuthService {
 
         const user = await this.userRepository.findByEmail(email);
 
-        // if (!user) throw new UserIsNotFoundError();
         if (!user) throw new NotFoundException("User is not found.");
 
         const isValidPassword = await bcrypt.compare(password, user.passwordHash);
