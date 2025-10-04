@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:7-alpine # imagem oficial leve
+    container_name: quiz-redis
+    ports:
+      - "6379:6379" # mapeia para localhost
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data # persiste dados mesmo se o container reiniciar
+
+volumes:
+  redis-data:
