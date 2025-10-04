@@ -1,6 +1,9 @@
-import { Body, Controller, HttpCode, Post } from "@nestjs/common";
+import { Body, Controller, HttpCode, Post, UseGuards } from "@nestjs/common";
 import { createQuizSchema } from "src/schemas/quiz.schema";
 import { QuizService } from "../services/quiz.service";
+import { JwtAuthGuard } from "src/modules/auth/jwt-auth.guard";
+import { User } from "src/decorators/user.decorator";
+import type { JwtPayload } from "src/modules/auth/jwt.strategy";
 
 @Controller("quiz")
 export class CreateQuizController {
@@ -8,12 +11,15 @@ export class CreateQuizController {
 
     @Post()
     @HttpCode(203)
-    async execute(@Body() body: any) {
+    @UseGuards(JwtAuthGuard)
+    async execute(@Body() body: any, @User() user: JwtPayload) {
         try {
 
             const { title, description } = createQuizSchema.parse(body);
 
-            const { quiz } = await this.quizService.create({ title, description });
+            const userId = user.sub;
+
+            const { quiz } = await this.quizService.create({ title, description, userId });
 
             return {
                 quiz

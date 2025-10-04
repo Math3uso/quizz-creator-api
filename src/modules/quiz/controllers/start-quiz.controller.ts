@@ -1,8 +1,5 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Param, Post, Request, UseGuards } from "@nestjs/common";
+import { Controller, Get, HttpException, HttpStatus, Param, UseGuards } from "@nestjs/common";
 import { JwtAuthGuard } from "src/modules/auth/jwt-auth.guard";
-import { QuizCacheService } from "src/modules/redis/cache/quiz.cache.service";
-import { startQuizSchema } from "src/schemas/quiz.schema";
-import { QuizRepository } from "../quiz.repository";
 import { QuizService } from "../services/quiz.service";
 import { User } from "src/decorators/user.decorator";
 import type { JwtPayload } from "src/modules/auth/jwt.strategy";

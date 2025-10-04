@@ -59,6 +59,11 @@ datasource db {
 //   participants Participant[] @relation("ParticipantAnswers")
 // }
 
+enum Role {
+  Admin
+  Participant
+}
+
 model User {
   id           String        @id @default(uuid())
   name         String
@@ -70,6 +75,7 @@ model User {
 model Participant {
   id             String @id @default(uuid())
   correctAnswers Int
+  role           Role
 
   answers Answer[] @relation("ParticipantAnswers")
 

@@ -83,7 +83,8 @@ export class QuizAnswerService {
                 correctAnswers: isParticipant.correctAnswers,
                 answers: {
                     connect: isParticipant.answers.map((el) => ({ id: el.id }))
-                }
+                },
+                role: isParticipant.role
             });
             console.log("============= quiz finalizado =============");
             console.log("quiz finalizado");

@@ -2,12 +2,13 @@ import { ConflictException, Injectable, NotFoundException } from "@nestjs/common
 import { Answer, Participant, Prisma } from "@prisma/client";
 import { QuizRepository } from "../quiz.repository";
 import { QuizCacheService } from "../../redis/cache/quiz.cache.service";
-import { QuizIsNotFoundError } from "src/common/errors/quiz-is-not-found-error";
 import { ParticipanCachetService } from "../../redis/cache/participante.cache.service";
 import { QuizIsAlreadyInProgress } from "src/common/errors/quiz-is-already-in-progress";
 import { randomUUID } from "crypto";
+import { ParticipantRepository } from "src/modules/participant/participant.repository";
 
 interface CreateQuizRequest {
+    userId: string;
     title: string;
     description: string;
 }
@@ -22,11 +23,15 @@ export class QuizService {
     constructor(
         private readonly quizRepository: QuizRepository,
         private readonly quizCache: QuizCacheService,
-        private readonly participantCache: ParticipanCachetService
+        private readonly participantCache: ParticipanCachetService,
+        private readonly participantRepository: ParticipantRepository
     ) { }
 
-    async create({ title, description }: CreateQuizRequest) {
+    async create({ userId, title, description }: CreateQuizRequest) {
+
         const quiz = await this.quizRepository.create({ title, description });
+
+        await this.participantRepository.create({ userId, role: "Admin", quizId: quiz.id, correctAnswers: 0 });
 
         return {
             quiz
@@ -68,7 +73,8 @@ export class QuizService {
             userId,
             quizId,
             correctAnswers: 0,
-            answers: []
+            answers: [],
+            role: "Participant"
         }
 
         await this.participantCache.addParticipant(quizId, newParticipant)
