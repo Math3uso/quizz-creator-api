@@ -16,3 +16,11 @@ export const defaulQuizDataSchema = z.object({
 export const quizResultSchema = z.object({
     participantId: z.string()
 });
+
+export const updateQuizSchema = z.object({
+    quizId: z.string(),
+    title: z.string(),
+    description: z.string()
+});
+
+export type UpdateQuiz = z.infer<typeof updateQuizSchema>;

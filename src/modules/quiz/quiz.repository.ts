@@ -46,7 +46,7 @@ export class QuizRepository {
         });
     }
 
-    async updateById(id: string, content: Quiz): Promise<Quiz | null> {
+    async updateById(id: string, content: Prisma.QuizUpdateInput): Promise<Quiz | null> {
         return await this.prisma.quiz.update({
             where: { id },
             data: content

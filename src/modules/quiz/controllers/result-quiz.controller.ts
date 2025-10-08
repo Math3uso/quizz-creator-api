@@ -14,17 +14,10 @@ export class QuizResultController {
     async execute(
         @Param("participantId") participantId: string,
     ) {
+        const data = await this.quizResultService.execute(participantId);
 
-        try {
-
-            const data = await this.quizResultService.execute(participantId);
-
-            return {
-                data
-            }
-
-        } catch (error) {
-            throw error;
+        return {
+            data
         }
 
     }

@@ -17,11 +17,13 @@ import { QuizDeleteController } from "./controllers/delete-quiz.controller";
 import { QuizDeleteService } from "./services/quiz-delete.service";
 import { QuizRankController } from "./controllers/rank-quiz.controller";
 import { QuizRankService } from "./services/quiz-rank.service";
+import { QuizUpdateController } from "./controllers/update-quiz.controller";
+import { QuizUpdateService } from "./services/quiz-update.service";
 
 @Module({
     imports: [AuthModule, RedisModule, ParticipantModule],
-    controllers: [CreateQuizController, QuizStartController, AnswerQuestionController, ResetProgressController, QuizResultController, QuizDeleteController, QuizRankController],
-    providers: [QuizService, QuizRepository, QuizRepositoryCache, QuizAnswerService, QuizResetProgressService, QuizResultService, QuizDeleteService, QuizRankService],
+    controllers: [CreateQuizController, QuizStartController, AnswerQuestionController, ResetProgressController, QuizResultController, QuizDeleteController, QuizRankController, QuizUpdateController],
+    providers: [QuizService, QuizRepository, QuizRepositoryCache, QuizAnswerService, QuizResetProgressService, QuizResultService, QuizDeleteService, QuizRankService, QuizUpdateService],
     exports: [QuizRepository],
 
 })
