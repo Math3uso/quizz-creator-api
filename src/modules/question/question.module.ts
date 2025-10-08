@@ -4,7 +4,6 @@ import { QuestionService } from "./question.service";
 import { CreteQuestionController } from "./controllers/create-question.controller";
 import { AuthModule } from "../auth/auth.module";
 import { QuizModule } from "../quiz/quiz.module";
-import { ParticipantRoleMiddleware } from "src/middleware/participant-role.middleware";
 import { ParticipantModule } from "../participant/participant.module";
 
 @Module({
